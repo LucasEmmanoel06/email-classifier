@@ -155,9 +155,21 @@ function showResults(result) {
     classificationText.textContent = result.classification.toUpperCase();
     classificationBadge.className = `classification-badge ${result.classification}`;
     
+    // Método de classificação
+    const classificationMethod = document.getElementById('classificationMethod');
+    const methodText = getMethodText(result.classification_method);
+    classificationMethod.textContent = methodText;
+    classificationMethod.className = `method-badge ${result.classification_method}`;
+    
     // Resposta sugerida
     const responseText = document.getElementById('responseText');
     responseText.textContent = result.suggested_response || 'Nenhuma resposta gerada.';
+    
+    // Método da resposta
+    const responseMethod = document.getElementById('responseMethod');
+    const responseMethodText = getMethodText(result.response_method);
+    responseMethod.textContent = responseMethodText;
+    responseMethod.className = `method-badge ${result.response_method}`;
     
     // Conteúdo original
     const originalText = document.getElementById('originalText');
@@ -166,6 +178,22 @@ function showResults(result) {
     // Mostrar seção de resultados
     resultsSection.style.display = 'block';
     resultsSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+// Função para converter código do método em texto legível
+function getMethodText(method) {
+    switch(method) {
+        case 'ai':
+            return '🤖 Inteligência Artificial';
+        case 'keywords':
+            return '🔍 Palavras-chave';
+        case 'template':
+            return '📝 Template padrão';
+        case 'erro':
+            return '❌ Erro';
+        default:
+            return '❓ Desconhecido';
+    }
 }
 
 // Função para mostrar erro

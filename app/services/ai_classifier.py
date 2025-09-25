@@ -26,19 +26,25 @@ class AIClassifier:
             email_content (str): Conteúdo do email
             
         Returns:
-            dict: Resultado da classificação com categoria e resposta sugerida
+            dict: Resultado da classificação com categoria, resposta sugerida e método usado
         """
         try:
             # Classificar email
-            classification = self._classify_content(email_content)
+            classification_result = self._classify_content(email_content)
+            classification = classification_result['classification']
+            method_used = classification_result['method']
             
             # Gerar resposta automática
-            suggested_response = self._generate_response(email_content, classification)
+            response_result = self._generate_response(email_content, classification)
+            suggested_response = response_result['response']
+            response_method = response_result['method']
             
             return {
                 'classification': classification,
                 'suggested_response': suggested_response,
-                'original_content': email_content[:200] + "..." if len(email_content) > 200 else email_content
+                'original_content': email_content[:200] + "..." if len(email_content) > 200 else email_content,
+                'classification_method': method_used,
+                'response_method': response_method
             }
             
         except Exception as e:
@@ -46,7 +52,9 @@ class AIClassifier:
                 'error': f"Erro na classificação: {str(e)}",
                 'classification': 'unknown',
                 'suggested_response': 'Não foi possível gerar uma resposta automática.',
-                'original_content': email_content[:200] + "..." if len(email_content) > 200 else email_content
+                'original_content': email_content[:200] + "..." if len(email_content) > 200 else email_content,
+                'classification_method': 'erro',
+                'response_method': 'erro'
             }
     
     def _classify_content(self, content):
@@ -57,11 +65,15 @@ class AIClassifier:
             content (str): Conteúdo do email
             
         Returns:
-            str: Classificação ('produtivo' ou 'improdutivo')
+            dict: Classificação e método usado
         """
         if not self.api_key or not self.model:
             # Fallback: classificação baseada em palavras-chave
-            return self._fallback_classification(content)
+            classification = self._fallback_classification(content)
+            return {
+                'classification': classification,
+                'method': 'keywords'
+            }
         
         try:
             prompt = f"""
@@ -84,13 +96,23 @@ class AIClassifier:
             classification = response.text.strip().upper()
             
             if classification in ['PRODUTIVO', 'IMPRODUTIVO']:
-                return classification.lower()
+                return {
+                    'classification': classification.lower(),
+                    'method': 'ai'
+                }
             else:
-                return 'produtivo'  # Default
+                return {
+                    'classification': 'produtivo',  # Default
+                    'method': 'ai'
+                }
                 
         except Exception as e:
             print(f"Erro na classificação com Gemini: {e}")
-            return self._fallback_classification(content)
+            classification = self._fallback_classification(content)
+            return {
+                'classification': classification,
+                'method': 'keywords'
+            }
     
     def _generate_response(self, content, classification):
         """
@@ -101,10 +123,14 @@ class AIClassifier:
             classification (str): Classificação do email
             
         Returns:
-            str: Resposta sugerida
+            dict: Resposta sugerida e método usado
         """
         if not self.api_key or not self.model:
-            return self._fallback_response(classification)
+            response = self._fallback_response(classification)
+            return {
+                'response': response,
+                'method': 'template'
+            }
         
         try:
             if classification == 'produtivo':
@@ -133,11 +159,18 @@ class AIClassifier:
                 model=self.model,
                 contents=[prompt]
             )
-            return response.text.strip()
+            return {
+                'response': response.text.strip(),
+                'method': 'ai'
+            }
             
         except Exception as e:
             print(f"Erro na geração de resposta com Gemini: {e}")
-            return self._fallback_response(classification)
+            response = self._fallback_response(classification)
+            return {
+                'response': response,
+                'method': 'template'
+            }
     
     def _fallback_classification(self, content):
         """Classificação baseada em palavras-chave quando API não está disponível"""

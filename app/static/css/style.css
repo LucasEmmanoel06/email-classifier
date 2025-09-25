@@ -298,6 +298,52 @@ textarea:focus {
     border: 2px solid #dd6b20;
 }
 
+/* Method Information */
+.method-info {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.method-label {
+    font-size: 0.9rem;
+    color: #718096;
+    margin-right: 8px;
+    font-weight: 500;
+}
+
+.method-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border: 1px solid;
+}
+
+.method-badge.ai {
+    background: #e6fffa;
+    color: #234e52;
+    border-color: #38b2ac;
+}
+
+.method-badge.keywords {
+    background: #fef5e7;
+    color: #744210;
+    border-color: #ed8936;
+}
+
+.method-badge.template {
+    background: #f0f4f8;
+    color: #2d3748;
+    border-color: #a0aec0;
+}
+
+.method-badge.erro {
+    background: #fed7d7;
+    color: #742a2a;
+    border-color: #e53e3e;
+}
+
 /* Response Result */
 .response-result {
     margin-bottom: 30px;
