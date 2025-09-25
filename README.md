@@ -72,7 +72,7 @@ email-classifier-assistant/
 
 - **Backend**: Flask, Google Gemini API, PyPDF2, python-docx
 - **Frontend**: HTML5, CSS3, JavaScript (Vanilla)
-- **IA**: Google Gemini 1.5 Flash (com fallback para classificação baseada em keywords)
+- **IA**: Google Gemini 2.5 Flash (com fallback para classificação baseada em keywords)
 
 ## 📝 Configurações Importantes
 
