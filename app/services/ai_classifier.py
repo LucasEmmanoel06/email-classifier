@@ -78,7 +78,11 @@ class AIClassifier:
             Responda apenas com: PRODUTIVO ou IMPRODUTIVO
             """
             
-            response = self.model.generate_content(prompt)
+            # Usar o client para gerar conteúdo com o modelo
+            response = self.client.models.generate_content(
+                model=self.model,
+                contents=[prompt]
+            )
             classification = response.text.strip().upper()
             
             if classification in ['PRODUTIVO', 'IMPRODUTIVO']:
@@ -126,7 +130,11 @@ class AIClassifier:
                 Gere uma resposta em português, cordial e breve (máximo 2 parágrafos).
                 """
             
-            response = self.model.generate_content(prompt)
+            # Usar o client para gerar conteúdo com o modelo
+            response = self.client.models.generate_content(
+                model=self.model,
+                contents=[prompt]
+            )
             return response.text.strip()
             
         except Exception as e:
