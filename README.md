@@ -33,6 +33,8 @@ copy .env.example .env
 Edite o arquivo .env com suas configurações.
 **Especialmente importante: GEMINI_API_KEY**
 
+[🔑 Veja como configurar sua chave de API](#chaves-de-api)
+
 ### 3. Executar a Aplicação
 
 ```bash
@@ -74,7 +76,7 @@ email-classifier-assistant/
 
 ## 📝 Configurações Importantes
 
-### API Keys
+### Chaves de API
 - Configure sua `GEMINI_API_KEY` no arquivo `.env`
 - Obtenha sua chave gratuita em: https://aistudio.google.com/app/apikey
 - Sem a API key, o sistema usará classificação baseada em palavras-chave
