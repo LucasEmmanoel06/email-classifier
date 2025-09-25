@@ -18,28 +18,28 @@
                 <h2>Enviar Email para Classificação</h2>
                 
                 <form id="emailForm" enctype="multipart/form-data">
-                    <!-- Opção 1: Texto direto -->
+                    <!-- Texto direto -->
                     <div class="input-group">
-                        <label for="emailText">Cole o texto do email aqui:</label>
+                        <label for="emailText">Conteúdo do email:</label>
                         <textarea id="emailText" name="email_text" placeholder="Cole aqui o conteúdo do email que deseja classificar..." rows="8"></textarea>
                     </div>
 
                     <div class="divider">
-                        <span>OU</span>
+                        <span>E/OU</span>
                     </div>
 
-                    <!-- Opção 2: Upload de arquivo -->
+                    <!-- Upload de arquivos -->
                     <div class="input-group">
-                        <label for="fileUpload">Faça upload de um arquivo:</label>
+                        <label for="fileUpload">Anexos (múltiplos arquivos aceitos):</label>
                         <div class="file-upload-area" id="fileUploadArea">
-                            <input type="file" id="fileUpload" name="file" accept=".txt,.pdf,.docx" hidden>
+                            <input type="file" id="fileUpload" name="file" accept=".txt,.pdf,.docx" multiple hidden>
                             <div class="file-upload-content">
                                 <span class="file-icon">📄</span>
-                                <p>Clique aqui ou arraste um arquivo</p>
-                                <small>Formatos aceitos: .txt, .pdf, .docx (máx. 16MB)</small>
+                                <p>Clique aqui ou arraste arquivos</p>
+                                <small>Formatos aceitos: .txt, .pdf, .docx (máx. 16MB cada)</small>
                             </div>
                         </div>
-                        <div id="fileName" class="file-name"></div>
+                        <div id="fileList" class="file-list"></div>
                     </div>
 
                     <button type="submit" class="btn-primary" id="classifyBtn">

@@ -3,7 +3,7 @@ const emailForm = document.getElementById('emailForm');
 const emailText = document.getElementById('emailText');
 const fileUpload = document.getElementById('fileUpload');
 const fileUploadArea = document.getElementById('fileUploadArea');
-const fileName = document.getElementById('fileName');
+const fileList = document.getElementById('fileList');
 const classifyBtn = document.getElementById('classifyBtn');
 const resultsSection = document.getElementById('resultsSection');
 const errorSection = document.getElementById('errorSection');
@@ -34,31 +34,52 @@ fileUploadArea.addEventListener('drop', (e) => {
     }
 });
 
-// Limpar campo de texto quando arquivo for selecionado
-fileUpload.addEventListener('change', () => {
-    if (fileUpload.files.length > 0) {
-        emailText.value = '';
-    }
-});
+// Não mais necessário limpar campos - agora permitimos ambos
 
-// Limpar arquivo quando texto for digitado
-emailText.addEventListener('input', () => {
-    if (emailText.value.trim()) {
-        fileUpload.value = '';
-        fileName.style.display = 'none';
-    }
-});
-
-// Função para lidar com seleção de arquivo
+// Função para lidar com seleção de arquivos (múltiplos)
 function handleFileSelect() {
-    const file = fileUpload.files[0];
-    if (file) {
-        fileName.textContent = `📄 ${file.name} (${formatFileSize(file.size)})`;
-        fileName.style.display = 'block';
-        emailText.value = ''; // Limpar texto quando arquivo for selecionado
-    } else {
-        fileName.style.display = 'none';
+    const files = fileUpload.files;
+    displayFileList(files);
+}
+
+// Função para exibir lista de arquivos selecionados
+function displayFileList(files) {
+    fileList.innerHTML = '';
+    
+    if (files.length === 0) {
+        fileList.style.display = 'none';
+        return;
     }
+    
+    fileList.style.display = 'block';
+    
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const fileItem = document.createElement('div');
+        fileItem.className = 'file-item';
+        fileItem.innerHTML = `
+            <span class="file-info">
+                📄 ${file.name} (${formatFileSize(file.size)})
+            </span>
+            <button type="button" class="remove-file-btn" onclick="removeFile(${i})">✕</button>
+        `;
+        fileList.appendChild(fileItem);
+    }
+}
+
+// Função para remover arquivo específico
+function removeFile(index) {
+    const dt = new DataTransfer();
+    const files = fileUpload.files;
+    
+    for (let i = 0; i < files.length; i++) {
+        if (i !== index) {
+            dt.items.add(files[i]);
+        }
+    }
+    
+    fileUpload.files = dt.files;
+    displayFileList(fileUpload.files);
 }
 
 // Formatar tamanho do arquivo
@@ -76,10 +97,10 @@ emailForm.addEventListener('submit', async (e) => {
     
     // Validação
     const hasText = emailText.value.trim();
-    const hasFile = fileUpload.files.length > 0;
+    const hasFiles = fileUpload.files.length > 0;
     
-    if (!hasText && !hasFile) {
-        showError('Por favor, insira o texto do email ou faça upload de um arquivo.');
+    if (!hasText && !hasFiles) {
+        showError('Por favor, insira o texto do email e/ou faça upload de arquivos.');
         return;
     }
     
@@ -95,8 +116,10 @@ emailForm.addEventListener('submit', async (e) => {
             formData.append('email_text', emailText.value);
         }
         
-        if (hasFile) {
-            formData.append('file', fileUpload.files[0]);
+        if (hasFiles) {
+            for (let i = 0; i < fileUpload.files.length; i++) {
+                formData.append('file', fileUpload.files[i]);
+            }
         }
         
         // Fazer requisição

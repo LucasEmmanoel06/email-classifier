@@ -68,3 +68,46 @@ class EmailProcessor:
         text = '\n'.join([line.strip() for line in text.split('\n') if line.strip()])
         
         return text
+    
+    def process_email_content(self, text_content=None, file_paths=None):
+        """
+        Processa conteúdo de email combinando texto direto e arquivos anexos
+        
+        Args:
+            text_content (str, optional): Texto direto do email
+            file_paths (list, optional): Lista de caminhos para arquivos anexos
+            
+        Returns:
+            str: Conteúdo combinado e pré-processado do email
+        """
+        combined_content = []
+        
+        # Adicionar texto direto se fornecido
+        if text_content and text_content.strip():
+            combined_content.append("=== CONTEÚDO DO EMAIL ===")
+            combined_content.append(self.preprocess_text(text_content))
+            combined_content.append("")
+        
+        # Processar arquivos anexos se fornecidos
+        if file_paths:
+            for i, filepath in enumerate(file_paths, 1):
+                try:
+                    file_text = self.extract_text_from_file(filepath)
+                    if file_text.strip():
+                        filename = os.path.basename(filepath)
+                        combined_content.append(f"=== ANEXO {i}: {filename} ===")
+                        combined_content.append(self.preprocess_text(file_text))
+                        combined_content.append("")
+                except Exception as e:
+                    # Log do erro, mas continue processando outros arquivos
+                    combined_content.append(f"=== ERRO AO PROCESSAR ANEXO: {os.path.basename(filepath)} ===")
+                    combined_content.append(f"Erro: {str(e)}")
+                    combined_content.append("")
+        
+        # Verificar se há conteúdo para processar
+        final_content = "\n".join(combined_content).strip()
+        
+        if not final_content:
+            raise ValueError("Nenhum conteúdo válido foi fornecido para processamento")
+        
+        return final_content
