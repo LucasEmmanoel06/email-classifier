@@ -1,20 +1,13 @@
-# Web Framework
+# Bibliotecas para o servidor Flask
 flask
 flask-cors
 
-# AI/NLP Libraries
+# Bibliotecas de IA
 google-genai
-transformers
-torch
-nltk
-spacy
 
-# Text Processing
+# Processamento de Documentos
 PyPDF2
 python-docx
 
-# Environment Management
+# Variáveis de Ambiente
 python-dotenv
-
-# Utilities
-requests

@@ -1,6 +1,6 @@
 # Email Classifier Assistant
 
-Uma aplicação web para classificação automática de emails usando Inteligência Artificial.
+Uma aplicação web para classificação automática de emails usando I.A.
 
 ## 📋 Funcionalidades
 
@@ -17,7 +17,7 @@ Uma aplicação web para classificação automática de emails usando Inteligên
 # Criar ambiente virtual
 python -m venv venv
 
-# Ativar ambiente virtual (Windows)
+# Ativar ambiente virtual
 venv\Scripts\activate
 
 # Instalar dependências
@@ -29,10 +29,9 @@ pip install -r requirements.txt
 ```bash
 # Copiar arquivo de exemplo
 copy .env.example .env
-
-# Editar .env com suas configurações
-# Especialmente importante: GEMINI_API_KEY
 ```
+Edite o arquivo .env com suas configurações.
+**Especialmente importante: GEMINI_API_KEY**
 
 ### 3. Executar a Aplicação
 
@@ -67,32 +66,11 @@ email-classifier-assistant/
 └── run.py                       # Ponto de entrada da aplicação
 ```
 
-## 🔧 Próximos Passos para Desenvolvimento
-
-### Backend (`app/services/`)
-- [ ] Implementar processamento NLP mais avançado
-- [ ] Adicionar mais modelos de IA (Hugging Face)
-- [ ] Implementar sistema de cache para classificações
-- [ ] Adicionar logging e monitoramento
-
-### Frontend (`app/templates/` e `app/static/`)
-- [ ] Adicionar mais feedbacks visuais
-- [ ] Implementar histórico de classificações
-- [ ] Adicionar exportação de resultados
-- [ ] Melhorar responsividade mobile
-
-### Funcionalidades Adicionais
-- [ ] Sistema de treinamento personalizado
-- [ ] API REST para integração externa
-- [ ] Dashboard de estatísticas
-- [ ] Integração com email providers
-
 ## 🛠️ Tecnologias Utilizadas
 
 - **Backend**: Flask, Google Gemini API, PyPDF2, python-docx
 - **Frontend**: HTML5, CSS3, JavaScript (Vanilla)
 - **IA**: Google Gemini 1.5 Flash (com fallback para classificação baseada em keywords)
-- **Processamento**: NLTK, spaCy (opcional)
 
 ## 📝 Configurações Importantes
 
