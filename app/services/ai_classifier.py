@@ -37,7 +37,6 @@ class AIClassifier:
             
             return {
                 'classification': classification,
-                'confidence': 0.85,  # Placeholder - você pode implementar cálculo real
                 'suggested_response': suggested_response,
                 'original_content': email_content[:200] + "..." if len(email_content) > 200 else email_content
             }
@@ -46,7 +45,6 @@ class AIClassifier:
             return {
                 'error': f"Erro na classificação: {str(e)}",
                 'classification': 'unknown',
-                'confidence': 0.0,
                 'suggested_response': 'Não foi possível gerar uma resposta automática.',
                 'original_content': email_content[:200] + "..." if len(email_content) > 200 else email_content
             }

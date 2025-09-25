@@ -132,14 +132,6 @@ function showResults(result) {
     classificationText.textContent = result.classification.toUpperCase();
     classificationBadge.className = `classification-badge ${result.classification}`;
     
-    // Confiança
-    const confidenceText = document.getElementById('confidenceText');
-    const confidenceBar = document.getElementById('confidenceBar');
-    
-    const confidence = Math.round((result.confidence || 0) * 100);
-    confidenceText.textContent = `${confidence}%`;
-    confidenceBar.style.width = `${confidence}%`;
-    
     // Resposta sugerida
     const responseText = document.getElementById('responseText');
     responseText.textContent = result.suggested_response || 'Nenhuma resposta gerada.';
