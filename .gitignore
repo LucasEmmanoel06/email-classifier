@@ -150,10 +150,6 @@ cython_debug/
 ehthumbs.db
 Thumbs.db
 
-# Upload folders
-uploads/
-temp/
-
 # Log files
 *.log
 logs/
