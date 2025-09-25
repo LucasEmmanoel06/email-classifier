@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Classifier Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📧 Email Classifier Assistant</h1>
+            <p>Classifique emails automaticamente usando Inteligência Artificial</p>
+        </header>
+
+        <main>
+            <div class="upload-section">
+                <h2>Enviar Email para Classificação</h2>
+                
+                <form id="emailForm" enctype="multipart/form-data">
+                    <!-- Opção 1: Texto direto -->
+                    <div class="input-group">
+                        <label for="emailText">Cole o texto do email aqui:</label>
+                        <textarea id="emailText" name="email_text" placeholder="Cole aqui o conteúdo do email que deseja classificar..." rows="8"></textarea>
+                    </div>
+
+                    <div class="divider">
+                        <span>OU</span>
+                    </div>
+
+                    <!-- Opção 2: Upload de arquivo -->
+                    <div class="input-group">
+                        <label for="fileUpload">Faça upload de um arquivo:</label>
+                        <div class="file-upload-area" id="fileUploadArea">
+                            <input type="file" id="fileUpload" name="file" accept=".txt,.pdf,.docx" hidden>
+                            <div class="file-upload-content">
+                                <span class="file-icon">📄</span>
+                                <p>Clique aqui ou arraste um arquivo</p>
+                                <small>Formatos aceitos: .txt, .pdf, .docx (máx. 16MB)</small>
+                            </div>
+                        </div>
+                        <div id="fileName" class="file-name"></div>
+                    </div>
+
+                    <button type="submit" class="btn-primary" id="classifyBtn">
+                        <span class="btn-text">Classificar Email</span>
+                        <span class="btn-loading" style="display: none;">Classificando...</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Seção de Resultados -->
+            <div class="results-section" id="resultsSection" style="display: none;">
+                <h2>Resultado da Classificação</h2>
+                
+                <div class="result-card">
+                    <div class="classification-result">
+                        <h3>Classificação:</h3>
+                        <div class="classification-badge" id="classificationBadge">
+                            <span id="classificationText"></span>
+                        </div>
+                        <div class="confidence-bar">
+                            <span>Confiança: <span id="confidenceText"></span></span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="confidenceBar"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="response-result">
+                        <h3>Resposta Sugerida:</h3>
+                        <div class="response-text" id="responseText"></div>
+                        <button class="btn-secondary" id="copyResponseBtn">Copiar Resposta</button>
+                    </div>
+
+                    <div class="original-content">
+                        <h4>Conteúdo Original (preview):</h4>
+                        <div class="original-text" id="originalText"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção de Erro -->
+            <div class="error-section" id="errorSection" style="display: none;">
+                <div class="error-card">
+                    <h3>❌ Erro</h3>
+                    <p id="errorMessage"></p>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Desenvolvido para automatizar a classificação de emails corporativos</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

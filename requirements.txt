@@ -1,0 +1,20 @@
+# Web Framework
+flask
+flask-cors
+
+# AI/NLP Libraries
+google-genai
+transformers
+torch
+nltk
+spacy
+
+# Text Processing
+PyPDF2
+python-docx
+
+# Environment Management
+python-dotenv
+
+# Utilities
+requests
