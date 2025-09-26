@@ -96,6 +96,7 @@ textarea:focus {
     right: 0;
     height: 1px;
     background: #e2e8f0;
+    z-index: 1;
 }
 
 .divider span {
@@ -103,6 +104,8 @@ textarea:focus {
     padding: 0 20px;
     color: #718096;
     font-weight: 600;
+    position: relative;
+    z-index: 2;
 }
 
 /* File Upload */
