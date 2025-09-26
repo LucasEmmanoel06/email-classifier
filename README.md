@@ -35,13 +35,32 @@ Edite o arquivo .env com suas configurações.
 
 [🔑 Veja como configurar sua chave de API](#chaves-de-api)
 
-### 3. Executar a Aplicação
+### 3. Executar em Desenvolvimento
 
 ```bash
 python run.py
 ```
 
 A aplicação estará disponível em: http://localhost:5000
+
+### 4. Executar em Produção (Waitress)
+
+No Windows, use o servidor WSGI Waitress e o entrypoint `wsgi:application`:
+
+```powershell
+# Instale dependências (inclui waitress)
+pip install -r requirements.txt
+
+# Execute o servidor em produção na porta 8000
+waitress-serve --listen=0.0.0.0:8000 wsgi:application
+```
+
+Variáveis recomendadas no .env para produção:
+
+- FLASK_ENV=production
+- FLASK_DEBUG=False
+- SECRET_KEY=uma-chave-secreta-forte
+- MAX_CONTENT_LENGTH=16777216
 
 ## 🏗️ Estrutura do Projeto
 

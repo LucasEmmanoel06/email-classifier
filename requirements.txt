@@ -1,6 +1,7 @@
 # Bibliotecas para o servidor Flask
 flask
 flask-cors
+waitress
 
 # Bibliotecas de IA
 google-genai
