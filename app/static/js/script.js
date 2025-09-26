@@ -234,16 +234,21 @@ document.getElementById('copyResponseBtn').addEventListener('click', () => {
     
     navigator.clipboard.writeText(responseText).then(() => {
         const btn = document.getElementById('copyResponseBtn');
-        const originalText = btn.textContent;
+        const originalHTML = btn.innerHTML;
         
-        btn.textContent = 'Copiado! ✓';
-        btn.style.background = '#48bb78';
-        btn.style.color = 'white';
+        // Mudança visual para indicar sucesso
+        btn.classList.add('copied');
+        btn.innerHTML = `
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20,6 9,17 4,12"></polyline>
+            </svg>
+        `;
+        btn.title = 'Copiado!';
         
         setTimeout(() => {
-            btn.textContent = originalText;
-            btn.style.background = '';
-            btn.style.color = '';
+            btn.classList.remove('copied');
+            btn.innerHTML = originalHTML;
+            btn.title = 'Copiar resposta';
         }, 2000);
     }).catch(() => {
         alert('Erro ao copiar texto. Tente selecionar e copiar manualmente.');
